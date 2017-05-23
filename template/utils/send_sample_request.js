@@ -100,7 +100,8 @@ define([
           data       : param,
           type       : type.toUpperCase(),
           success    : displaySuccess,
-          error      : displayError
+          error      : displayError,
+          withCredentials : true
       };
 
       $.ajax(ajaxRequest);
