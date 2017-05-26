@@ -101,7 +101,9 @@ define([
           type       : type.toUpperCase(),
           success    : displaySuccess,
           error      : displayError,
-          withCredentials : true
+          xhrFields: {
+              withCredentials: true
+          }
       };
 
       $.ajax(ajaxRequest);
