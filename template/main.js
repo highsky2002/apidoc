@@ -51,7 +51,38 @@ require([
     'pathToRegexp',
     'list'
 ], function($, _, locale, Handlebars, apiProject, apiData, prettyPrint, sampleRequest, semver, WebFont) {
+    
+    //===加入身份验证模块===Start，使得只对特定的人开放查看
+    var isLogin = true;
+    $.ajax({
+        url:'https://ssl.inewhome.com/erp/erpadmin/GetMyErpInfo',
+        async:false,
+        dataType: 'json',
+        crossDomain: true,
+        xhrFields: {
+            withCredentials: true
+        },
+        success:function(data){
+              if(data.ErrCode == 0){
+                  console.log("系统登录人：",data);  
+              }else{
+                  isLogin = false;
+                  
+              }
+              
 
+        },
+        error:function(){
+             isLogin = false;
+            alert("获取用户信息失败！");
+        }
+    })
+    if(!isLogin){
+          alert("请先登录ERP系统！");
+          return false;
+    }
+    //===加入身份验证模块===End
+    
     // load google web fonts
     loadGoogleFontCss();
 
